@@ -1,4 +1,4 @@
-# 0608 - restful API 구현
+# 0612 - DB 개발 / 기술설명서 작성
 
 import pymysql
 from flask import Flask, render_template, request
@@ -7,7 +7,7 @@ from flask_restx import Resource, Api
 db = pymysql.connect(host="localhost",
                      port=3306,
                      user='root',
-                     passwd='', # 업로드 시 삭제
+                     passwd='sarah164!!', # 업로드 시 삭제
                      db='mysql',
                      charset='utf8')
 

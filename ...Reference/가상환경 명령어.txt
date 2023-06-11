@@ -1,0 +1,10 @@
+가상환경
+
+가상환경 생성 및 접속 (Window)
+- python -m venv venv
+- venv\Scripts\activate
+
+pip upgrade
+- python.exe -m pip install --upgrade pip
+
+
