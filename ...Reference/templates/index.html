@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Management</title>
+</head>
+<body>
+    <h1>Product Management</h1>
+
+    <h2>Add Product</h2>
+    <form action="/add_product" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required><br>
+
+        <input type="submit" value="Add Product">
+    </form>
+
+    <h2>Delete Product</h2>
+    <form action="/delete_product" method="POST">
+        <label for="product_id">Product ID:</label>
+        <input type="number" id="product_id" name="product_id" required><br>
+
+        <input type="submit" value="Delete Product">
+    </form>
+</body>
+</html>

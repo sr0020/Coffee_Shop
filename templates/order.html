@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<h1> 주문 관리 페이지 </h1><br>
+	<style>
+		table {
+			margin-left: auto;
+			margin-right: auto;
+		}
+		th, td {
+			text-align: center;
+		}
+		h1 {
+			text-align: center;
+		}
+		h3, form {
+			text-align: center;
+		}
+		@media (min-width: 600px){
+			.item {
+				width: 50%;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<h3> ✋🏻 Order table ✋🏻 </h3>
+        <form>
+            <label for="quest"><b>데이터 추가</b></label>
+            <input type="text" id="quest" name="answer" style="width: 600px;">
+            <input type="submit" value="확인">
+        </form>
+	<br>
+	
+	<table border = '' class = "table">
+		<thead>
+			<tr>
+				<th>Order Number</th>
+				<th>Order Date</th>
+				<th>Payment Method</th>
+				<th>Order Quantity</th>
+				<th>Product Number</th>
+				<th>Employee Number</th>
+				<th>Customer Number</th>
+			</tr>
+		<thead>
+
+		<tbody>
+
+			{% for i in order_data %}
+			<tr>
+				<td>{{ i[0] }}</td>
+				<td>{{ i[1] }}</td>
+				<td>{{ i[2] }}</td>
+				<td>{{ i[3] }}</td>
+				<td>{{ i[4] }}</td>
+				<td>{{ i[5] }}</td>
+				<td>{{ i[6] }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+</body>
+</html>

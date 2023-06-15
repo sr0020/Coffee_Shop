@@ -2,34 +2,44 @@
 <html>
 <head>
 	<h1> Coffee Shop Database </h1><br>
+	<!-- <button onclick="goProduct()">Product</button> -->
+	<style>
+		h1 {
+			text-align: center;
+			color:  rgb(70, 45, 0);
+
+		}
+		@media (min-width: 600px){
+			.item {
+				width: 50%;
+			}
+		}
+		button {
+			text-align: center;
+			margin-right: 20px;
+			margin-top: 40px;
+			color: whitesmoke;
+			background-color: black;
+			border-radius: 0%;
+			cursor: pointer;
+			font-size: 20px;
+		}
+		button:hover {
+			color: black;
+			background-color: beige;
+		}
+	</style>
 </head>
 
 <body>
-	<p>Product table</p>
-	<table border = '' class = "table">
-		<thead>
-			<tr>
-				<th>Product Number</th>
-				<th>Product</th>
-				<th>Product Price</th>
-				<th>Expiry Date</th>
-				<th>Stock</th>
-			<tr/>
-		<thead>
-
-		<tbody>
-
-			{% for i in data_list %}
-			<tr>
-				<td>{{ i[0] }}</td>
-				<td>{{ i[1] }}</td>
-				<td>{{ i[2] }}</td>
-				<td>{{ i[3] }}</td>
-				<td>{{ i[4] }}</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
+	<div style = "text-align: center;">
+		<button type="button"><b>Product</b></button>
+		<button type="button"><b>Customer</b></button>
+		<button type="button"><b>Order</b></button>
+		<br>
+		<button type="button"><b>Employee</b></button>
+		<button type="button"><b>Sales</b></button>
+		<button type="button"><b>Inventory</b></button>
+	</div>
 </body>
 </html>
