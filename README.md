@@ -1,6 +1,5 @@
 # Coffee Shop Management System
 - 0608 - 기획 / 0613 ~ 0615, 0627~0629 개발
-- <b> (데일리 프로젝트 확장) </b>
 
 ### 메인 UI
 ![img](./img/Coffee_Shop_Main.png)
