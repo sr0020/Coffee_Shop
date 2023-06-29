@@ -1,5 +1,5 @@
 # 0613-0615 - 각 테이블 생성 및 select 구현, UI 작업
-# 0627-0629 - 각 테이블 insert, delete 구현/예외처리 및 전체 프로토타입 완성
+# 0627-0629 - 각 테이블 insert/delete 구현, 예외처리 및 전체 프로토타입 완성
 
 import pymysql
 from flask import Flask, render_template, request, redirect
