@@ -2,8 +2,7 @@
 # 0627-0629 - 각 테이블 insert, delete 구현/예외처리 및 전체 프로토타입 완성
 
 import pymysql
-from flask import Flask, render_template, request, jsonify, redirect
-from pymysql import IntegrityError
+from flask import Flask, render_template, request, redirect
 
 db = pymysql.connect(host="localhost",
                      port=3306,
@@ -84,17 +83,12 @@ def delete_product(product_number):
     print('delete = ', result)
 
     # 외래키 제약조건 여부 확인 후 해당되는 경우 삭제 불가 알림
-    try:
-        cursor_check_foreign = db.cursor()
-        sql_check_foreign = "select * from 주문 where 제품번호 = %s"
-        cursor_check_foreign.execute(sql_check_foreign, (product_number,))
-        result = cursor_check_foreign.fetchone()
-        if result:
-            print("외래키 제약조건으로 인해 삭제할 수 없습니다.")
-            return redirect('/product')
-        
-    except IntegrityError as e:
-        print("IntegrityError:", e)
+    cursor_check_foreign = db.cursor()
+    sql_check_foreign = "select * from 주문 where 제품번호 = %s"
+    cursor_check_foreign.execute(sql_check_foreign, (product_number,))
+    result = cursor_check_foreign.fetchone()
+    if result:
+        print("외래키 제약조건으로 인해 삭제할 수 없습니다.")
         return redirect('/product')
 
     # delete
@@ -170,17 +164,12 @@ def delete_customer(membership_number):
     print('delete = ', result)
 
     # 외래키 제약조건 여부 확인 후 해당되는 경우 삭제 불가 알림
-    try:
-        cursor_check_foreign = db.cursor()
-        sql_check_foreign = "select * from 주문 where 고객번호 = %s"
-        cursor_check_foreign.execute(sql_check_foreign, (membership_number,))
-        result = cursor_check_foreign.fetchone()
-        if result:
-            print("외래키 제약조건으로 인해 삭제할 수 없습니다.")
-            return redirect('/customer')
-        
-    except IntegrityError as e:
-        print("IntegrityError:", e)
+    cursor_check_foreign = db.cursor()
+    sql_check_foreign = "select * from 주문 where 고객번호 = %s"
+    cursor_check_foreign.execute(sql_check_foreign, (membership_number,))
+    result = cursor_check_foreign.fetchone()
+    if result:
+        print("외래키 제약조건으로 인해 삭제할 수 없습니다.")
         return redirect('/customer')
 
     # delete
@@ -335,17 +324,12 @@ def delete_employee(employee_number):
     print('delete = ', result)
 
     # 외래키 제약조건 여부 확인 후 해당되는 경우 삭제 불가 알림
-    try:
-        cursor_check_foreign = db.cursor()
-        sql_check_foreign = "select * from 주문 where 직원번호 = %s"
-        cursor_check_foreign.execute(sql_check_foreign, (employee_number,))
-        result = cursor_check_foreign.fetchone()
-        if result:
-            print("외래키 제약조건으로 인해 삭제할 수 없습니다.")
-            return redirect('/employee')
-        
-    except IntegrityError as e:
-        print("IntegrityError:", e)
+    cursor_check_foreign = db.cursor()
+    sql_check_foreign = "select * from 주문 where 직원번호 = %s"
+    cursor_check_foreign.execute(sql_check_foreign, (employee_number,))
+    result = cursor_check_foreign.fetchone()
+    if result:
+        print("외래키 제약조건으로 인해 삭제할 수 없습니다.")
         return redirect('/employee')
 
     # delete
