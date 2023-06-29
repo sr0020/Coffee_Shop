@@ -16,21 +16,84 @@
 		h3, form {
 			text-align: center;
 		}
+		.form-group label {
+			margin-right: 20px;
+			font-weight: bold;
+		}
+
+		.form-group input {
+			width: 300px;
+		}
 		@media (min-width: 600px){
 			.item {
 				width: 50%;
 			}
 		}
 	</style>
+	<script>
+		function home_href() {
+			window.location.href = "/"
+		}
+
+		function addAdditionalField() {
+			var formGroup = document.createElement('div');
+			formGroup.className = 'form-group';
+
+			var label = document.createElement('label');
+			label.textContent = 'Additional Field';
+			formGroup.appendChild(label);
+
+			var input = document.createElement('input');
+			input.type = 'text';
+			input.name = 'additional_field[]';
+			formGroup.appendChild(input);
+
+			var br = document.createElement('br');
+			formGroup.appendChild(br);
+
+			var form = document.querySelector('form');
+			form.insertBefore(formGroup, form.lastElementChild);
+		}
+	</script>
 </head>
 
 <body>
 	<h3> 📚 Inventory table 📚 </h3>
-        <form>
-            <label for="quest"><b>데이터 추가</b></label>
-            <input type="text" id="quest" name="answer" style="width: 600px;">
-            <input type="submit" value="확인">
-        </form>
+	<form method="POST", action="/inventory">
+		<div class="form-group">
+			<label for="material_number"><b>Material Number</b></label>
+			<input type="text" id="material_number" name="material_number">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="material_product_name"><b>Material Product Name</b></label>
+			<input type="text" id="material_product_name" name="material_product_name">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="material_product_price"><b>Material Product Price</b></label>
+			<input type="number" id="material_product_price" name="material_product_price">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="inventory_quantity"><b>Inventory Quantity</b></label>
+			<input type="text" id="inventory_quantity" name="inventory_quantity">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="size"><b>Size</b></label>
+			<input type="text" id="size" name="size">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="supply_company"><b>Supply Company</b></label>
+			<input type="text" id="supply_company" name="supply_company">
+			<br>
+		</div>
+		<br>
+		<button type="submit"><b>데이터 추가</b></button> 
+
+	</form>
 	<br>
 	
 	<table border = '' class = "table">
@@ -41,24 +104,37 @@
 				<th>Product Price</th>
 				<th>Inventory Quantity</th>
 				<th>Size</th>
-				<th>Purchasing Company</th>
+				<th>Supply Company</th>
 			</tr>
 		<thead>
 
 		<tbody>
 
 			{% for i in inventory_data %}
-			<tr>
-				<td>{{ i[0] }}</td>
-				<td>{{ i[1] }}</td>
-				<td>{{ i[2] }}</td>
-				<td>{{ i[3] }}</td>
-				<td>{{ i[4] }}</td>
-				<td>{{ i[5] }}</td>
-			</tr>
+				{% if not i[6] %}
+				<tr>
+					<td>{{ i[0] }}</td>
+					<td>{{ i[1] }}</td>
+					<td>{{ i[2] }}</td>
+					<td>{{ i[3] }}</td>
+					<td>{{ i[4] }}</td>
+					<td>{{ i[5] }}</td>
+					<td>
+						<form method="POST" action="/inventory">
+							<input type="hidden" name="material_number" value="{{ i[0] }}">
+							<button type="submit" class="delete-button" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+						</form>
+					</td>
+				</tr>
+				{% endif %}
 			{% endfor %}
 		</tbody>
 	</table>
+
+	<div style = "text-align: center;">
+		<br>
+		<button type="button", onclick="home_href()"><b>Go To Home</b></button>
+	</div>
 
 </body>
 </html>

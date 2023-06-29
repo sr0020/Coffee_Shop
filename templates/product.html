@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<h1> 제품 관리 페이지 </h1><br>
+	<h1> 상품 관리 페이지 </h1><br>
 	<style>
 		table {
 			margin-left: auto;
@@ -16,28 +16,88 @@
 		h3, form {
 			text-align: center;
 		}
+
+		.form-group label {
+			margin-right: 20px;
+			font-weight: bold;
+		}
+
+		.form-group input {
+			width: 300px;
+		}
 		@media (min-width: 600px){
 			.item {
 				width: 50%;
 			}
 		}
 	</style>
+	<script>
+		function home_href() {
+			window.location.href = "/"
+		}
+
+		function addAdditionalField() {
+			var formGroup = document.createElement('div');
+			formGroup.className = 'form-group';
+
+			var label = document.createElement('label');
+			label.textContent = 'Additional Field';
+			formGroup.appendChild(label);
+
+			var input = document.createElement('input');
+			input.type = 'text';
+			input.name = 'additional_field[]';
+			formGroup.appendChild(input);
+
+			var br = document.createElement('br');
+			formGroup.appendChild(br);
+
+			var form = document.querySelector('form');
+			form.insertBefore(formGroup, form.lastElementChild);
+		}
+	</script>
 </head>
 
 <body>
-	<h3> ☕️ Product table ☕️ </h3>
-        <form>
-            <label for="quest"><b>데이터 추가</b></label>
-            <input type="text" id="quest" name="answer" style="width: 600px;">
-            <input type="submit" value="확인">
-        </form>
+	<h3> ☕️ Product Table ☕️ </h3>
+	<form method="POST", action="/product">
+		<div class="form-group">
+			<label for="product_number"><b>Product Number</b></label>
+			<input type="text" id="product_number" name="product_number">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="product_name"><b>Product Name</b></label>
+			<input type="text" id="product_name" name="product_name">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="product_price"><b>Product Price</b></label>
+			<input type="number" id="product_price" name="product_price">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="date"><b>Expiry Date</b></label>
+			<input type="date" id="date" name="date">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="stock"><b>Stock</b></label>
+			<input type="text" id="stock" name="stock">
+			<br>
+		</div>
+		<br>
+		<button type="submit"><b>데이터 추가</b></button> 
+
+	</form>
+
 	<br>
 	
 	<table border = '' class = "table">
 		<thead>
 			<tr>
 				<th>Product Number</th>
-				<th>Product</th>
+				<th>Product Name</th>
 				<th>Product Price</th>
 				<th>Expiry Date</th>
 				<th>Stock</th>
@@ -47,16 +107,29 @@
 		<tbody>
 
 			{% for i in product_data %}
-			<tr>
-				<td>{{ i[0] }}</td>
-				<td>{{ i[1] }}</td>
-				<td>{{ i[2] }}</td>
-				<td>{{ i[3] }}</td>
-				<td>{{ i[4] }}</td>
-			</tr>
+				{% if not i[5] %}
+				<tr>
+					<td>{{ i[0] }}</td>
+					<td>{{ i[1] }}</td>
+					<td>{{ i[2] }}</td>
+					<td>{{ i[3] }}</td>
+					<td>{{ i[4] }}</td>
+					<td>
+						<form method="POST" action="/product">
+							<input type="hidden" name="product_number" value="{{ i[0] }}">
+							<button type="submit" class="delete-button" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+						</form>
+					</td>
+				</tr>
+				{% endif %}
 			{% endfor %}
 		</tbody>
 	</table>
+
+	<div style = "text-align: center;">
+		<br>
+		<button type="button", onclick="home_href()"><b>Go To Home</b></button>
+	</div>
 
 </body>
 </html>

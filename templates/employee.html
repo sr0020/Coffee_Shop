@@ -16,28 +16,101 @@
 		h3, form {
 			text-align: center;
 		}
+		.form-group label {
+			margin-right: 20px;
+			font-weight: bold;
+		}
+
+		.form-group input {
+			width: 300px;
+		}
 		@media (min-width: 600px){
 			.item {
 				width: 50%;
 			}
 		}
 	</style>
+	<script>
+		function home_href() {
+			window.location.href = "/"
+		}
+
+		function addAdditionalField() {
+			var formGroup = document.createElement('div');
+			formGroup.className = 'form-group';
+
+			var label = document.createElement('label');
+			label.textContent = 'Additional Field';
+			formGroup.appendChild(label);
+
+			var input = document.createElement('input');
+			input.type = 'text';
+			input.name = 'additional_field[]';
+			formGroup.appendChild(input);
+
+			var br = document.createElement('br');
+			formGroup.appendChild(br);
+
+			var form = document.querySelector('form');
+			form.insertBefore(formGroup, form.lastElementChild);
+		}
+	</script>
 </head>
 
 <body>
-	<h3> 😃 Employee table 😃 </h3>
-        <form>
-            <label for="quest"><b>데이터 추가</b></label>
-            <input type="text" id="quest" name="answer" style="width: 600px;">
-            <input type="submit" value="확인">
-        </form>
+	<h3> 😃 Employee Table 😃 </h3>
+	<form method="POST", action="/employee">
+		<div class="form-group">
+			<label for="employee_number"><b>Employee Number</b></label>
+			<input type="text" id="employee_number" name="employee_number">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="employee_name"><b>Employee Name</b></label>
+			<input type="text" id="employee_name" name="employee_name">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="position"><b>Position</b></label>
+			<input type="text" id="position" name="position">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="employment_date"><b>Employment Date</b></label>
+			<input type="date" id="employment_date" name="employment_date">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="contact"><b>Contact</b></label>
+			<input type="text" id="contact" name="contact">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="account_number"><b>Account Number</b></label>
+			<input type="text" id="account_number" name="account_number">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="start_time"><b>Start Time</b></label>
+			<input type="time" id="start_time" name="start_time">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="leave_time"><b>Leave Time</b></label>
+			<input type="time" id="leave_time" name="leave_time">
+			<br>
+		</div>
+		<br>
+		<button type="submit"><b>데이터 추가</b></button> 
+
+	</form>
 	<br>
 	
 	<table border = '' class = "table">
 		<thead>
 			<tr>
 				<th>Employee Number</th>
-				<th>Name</th>
+				<th>Employee Name</th>
 				<th>Position</th>
 				<th>Employment Date</th>
 				<th>Contact</th>
@@ -50,19 +123,32 @@
 		<tbody>
 
 			{% for i in employee_data %}
-			<tr>
-				<td>{{ i[0] }}</td>
-				<td>{{ i[1] }}</td>
-				<td>{{ i[2] }}</td>
-				<td>{{ i[3] }}</td>
-				<td>{{ i[4] }}</td>
-				<td>{{ i[5] }}</td>
-				<td>{{ i[6] }}</td>
-				<td>{{ i[7] }}</td>
-			</tr>
+				{% if not i[8] %}
+				<tr>
+					<td>{{ i[0] }}</td>
+					<td>{{ i[1] }}</td>
+					<td>{{ i[2] }}</td>
+					<td>{{ i[3] }}</td>
+					<td>{{ i[4] }}</td>
+					<td>{{ i[5] }}</td>
+					<td>{{ i[6] }}</td>
+					<td>{{ i[7] }}</td>
+					<td>
+						<form method="POST" action="/employee">
+							<input type="hidden" name="employee_number" value="{{ i[0] }}">
+							<button type="submit" class="delete-button" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+						</form>
+					</td>
+				</tr>
+				{% endif %}
 			{% endfor %}
 		</tbody>
 	</table>
+
+	<div style = "text-align: center;">
+		<br>
+		<button type="button", onclick="home_href()"><b>Go To Home</b></button>
+	</div>
 
 </body>
 </html>

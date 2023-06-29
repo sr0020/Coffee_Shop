@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<h1> Coffee Shop Database </h1><br>
-	<!-- <button onclick="goProduct()">Product</button> -->
+	<h1> Coffee Shop Management System </h1><br>
 	<style>
 		h1 {
 			text-align: center;
@@ -29,17 +28,37 @@
 			background-color: beige;
 		}
 	</style>
+	<script>
+		function product_href() {
+			window.location.href = "/product"
+		}
+		function customer_href() {
+			window.location.href = "/customer"
+		}
+		function order_href() {
+			window.location.href = "/order"
+		}
+		function employee_href() {
+			window.location.href = "/employee"
+		}
+		function sales_href() {
+			window.location.href = "/sales"
+		}
+		function inventory_href() {
+			window.location.href = "/inventory"
+		}
+	</script>
 </head>
 
 <body>
 	<div style = "text-align: center;">
-		<button type="button"><b>Product</b></button>
-		<button type="button"><b>Customer</b></button>
-		<button type="button"><b>Order</b></button>
+		<button type="button", onclick="product_href()"><b>Product</b></button>
+		<button type="button", onclick="customer_href()"><b>Customer</b></button>
+		<button type="button", onclick="order_href()"><b>Order</b></button>
 		<br>
-		<button type="button"><b>Employee</b></button>
-		<button type="button"><b>Sales</b></button>
-		<button type="button"><b>Inventory</b></button>
+		<button type="button", onclick="employee_href()"><b>Employee</b></button>
+		<button type="button", onclick="sales_href()"><b>Sales</b></button>
+		<button type="button", onclick="inventory_href()"><b>Inventory</b></button>
 	</div>
 </body>
 </html>

@@ -16,28 +16,82 @@
 		h3, form {
 			text-align: center;
 		}
+		.form-group label {
+			margin-right: 20px;
+			font-weight: bold;
+		}
+
+		.form-group input {
+			width: 300px;
+		}
 		@media (min-width: 600px){
 			.item {
 				width: 50%;
 			}
 		}
 	</style>
+	<script>
+		function home_href() {
+			window.location.href = "/"
+		}
+
+		function addAdditionalField() {
+			var formGroup = document.createElement('div');
+			formGroup.className = 'form-group';
+
+			var label = document.createElement('label');
+			label.textContent = 'Additional Field';
+			formGroup.appendChild(label);
+
+			var input = document.createElement('input');
+			input.type = 'text';
+			input.name = 'additional_field[]';
+			formGroup.appendChild(input);
+
+			var br = document.createElement('br');
+			formGroup.appendChild(br);
+
+			var form = document.querySelector('form');
+			form.insertBefore(formGroup, form.lastElementChild);
+		}
+	</script>
 </head>
 
 <body>
-	<h3> 🤩 Customer table 🤩 </h3>
-        <form>
-            <label for="quest"><b>데이터 추가</b></label>
-            <input type="text" id="quest" name="answer" style="width: 600px;">
-            <input type="submit" value="확인">
-        </form>
+	<h3> 🤩 Customer Table 🤩 </h3>
+	<form method="POST", action="/customer">
+		<div class="form-group">
+			<label for="membership_number"><b>Membership Number</b></label>
+			<input type="text" id="membership_number" name="membership_number">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="customer_name"><b>Customer Name</b></label>
+			<input type="text" id="customer_name" name="customer_name">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="phone_number"><b>Phone Number</b></label>
+			<input type="text" id="phone_number" name="phone_number">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="birthday"><b>Birthday</b></label>
+			<input type="date" id="birthday" name="birthday">
+			<br>
+		</div>
+		<br>
+		<button type="submit"><b>데이터 추가</b></button> 
+
+	</form>
+	
 	<br>
 
 	<table border = '' class = "table">
 		<thead>
 			<tr>
 				<th>Membership Number</th>
-				<th>Name</th>
+				<th>Customer Name</th>
 				<th>Phone Number</th>
 				<th>Birthday</th>
 			</tr>
@@ -46,15 +100,28 @@
 		<tbody>
 
 			{% for i in customer_data %}
-			<tr>
-				<td>{{ i[0] }}</td>
-				<td>{{ i[1] }}</td>
-				<td>{{ i[2] }}</td>
-				<td>{{ i[3] }}</td>
-			</tr>
+				{% if not i[4] %}
+				<tr>
+					<td>{{ i[0] }}</td>
+					<td>{{ i[1] }}</td>
+					<td>{{ i[2] }}</td>
+					<td>{{ i[3] }}</td>
+					<td>
+						<form method="POST" action="/customer">
+							<input type="hidden" name="membership_number" value="{{ i[0] }}">
+							<button type="submit" class="delete-button" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+						</form>
+					</td>
+				</tr>
+				{% endif %}
 			{% endfor %}
 		</tbody>
 	</table>
+
+	<div style = "text-align: center;">
+		<br>
+		<button type="button", onclick="home_href()"><b>Go To Home</b></button>
+	</div>
 
 </body>
 </html>

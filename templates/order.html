@@ -16,21 +16,90 @@
 		h3, form {
 			text-align: center;
 		}
+		.form-group label {
+			margin-right: 20px;
+			font-weight: bold;
+		}
+
+		.form-group input {
+			width: 300px;
+		}
 		@media (min-width: 600px){
 			.item {
 				width: 50%;
 			}
 		}
 	</style>
+	<script>
+		function home_href() {
+			window.location.href = "/"
+		}
+
+		function addAdditionalField() {
+			var formGroup = document.createElement('div');
+			formGroup.className = 'form-group';
+
+			var label = document.createElement('label');
+			label.textContent = 'Additional Field';
+			formGroup.appendChild(label);
+
+			var input = document.createElement('input');
+			input.type = 'text';
+			input.name = 'additional_field[]';
+			formGroup.appendChild(input);
+
+			var br = document.createElement('br');
+			formGroup.appendChild(br);
+
+			var form = document.querySelector('form');
+			form.insertBefore(formGroup, form.lastElementChild);
+		}
+	</script>
 </head>
 
 <body>
-	<h3> ✋🏻 Order table ✋🏻 </h3>
-        <form>
-            <label for="quest"><b>데이터 추가</b></label>
-            <input type="text" id="quest" name="answer" style="width: 600px;">
-            <input type="submit" value="확인">
-        </form>
+	<h3> ✋🏻 Order Table ✋🏻 </h3>
+	<form method="POST", action="/order">
+		<div class="form-group">
+			<label for="order_number"><b>Order Number</b></label>
+			<input type="text" id="order_number" name="order_number">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="order_date"><b>Order Date</b></label>
+			<input type="date" id="order_date" name="order_date">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="payment_method"><b>Payment Method</b></label>
+			<input type="text" id="payment_method" name="payment_method">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="order_quantity"><b>Order Quantity</b></label>
+			<input type="text" id="order_quantity" name="order_quantity">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="product_number"><b>Product Number</b></label>
+			<input type="text" id="product_number" name="product_number">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="employee_number"><b>Employee Number</b></label>
+			<input type="text" id="employee_number" name="employee_number">
+			<br>
+		</div>
+		<div class="form-group">
+			<label for="customer_number"><b>Customer Number</b></label>
+			<input type="text" id="customer_number" name="customer_number">
+			<br>
+		</div>
+		<br>
+		<button type="submit"><b>데이터 추가</b></button> 
+
+	</form>
+
 	<br>
 	
 	<table border = '' class = "table">
@@ -49,18 +118,31 @@
 		<tbody>
 
 			{% for i in order_data %}
-			<tr>
-				<td>{{ i[0] }}</td>
-				<td>{{ i[1] }}</td>
-				<td>{{ i[2] }}</td>
-				<td>{{ i[3] }}</td>
-				<td>{{ i[4] }}</td>
-				<td>{{ i[5] }}</td>
-				<td>{{ i[6] }}</td>
-			</tr>
+				{% if not i[7] %}
+				<tr>
+					<td>{{ i[0] }}</td>
+					<td>{{ i[1] }}</td>
+					<td>{{ i[2] }}</td>
+					<td>{{ i[3] }}</td>
+					<td>{{ i[4] }}</td>
+					<td>{{ i[5] }}</td>
+					<td>{{ i[6] }}</td>
+					<td>
+						<form method="POST" action="/order">
+							<input type="hidden" name="order_number" value="{{ i[0] }}">
+							<button type="submit" class="delete-button" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+						</form>
+					</td>
+				</tr>
+				{% endif %}
 			{% endfor %}
 		</tbody>
 	</table>
+
+	<div style = "text-align: center;">
+		<br>
+		<button type="button", onclick="home_href()"><b>Go To Home</b></button>
+	</div>
 
 </body>
 </html>
