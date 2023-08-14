@@ -46,7 +46,7 @@ def Product():
     cursor_product.execute(sql_product)
     product = cursor_product.fetchall()  
 
-    return render_template('product.html', product_data=product)
+    return render_template('product.html', product_data=product) # get
 
 # insert product
 def insert_product(product_number, product_name, product_price, expiry_date, stock):
